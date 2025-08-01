@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prediction Form</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #121212;
+      color: #e0e0e0;
+      padding: 40px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #1f1f1f;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(255, 255, 255, 0.04);
+      position: relative;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #f06292;
+    }
+
+    input[type=number] {
+      width: 100%;
+      padding: 14px;
+      margin: 10px 0 20px;
+      background: #2b2b2b;
+      border: 1px solid #444;
+      border-radius: 10px;
+      font-size: 1rem;
+      color: #f1f1f1;
+    }
+
+    input[type=number]::placeholder {
+      color: #aaa;
+    }
+
+    input[type=number]:focus {
+      border-color: #ec407a;
+      outline: none;
+      box-shadow: 0 0 8px rgba(236, 64, 122, 0.5);
+    }
+
+    .btn {
+      width: 100%;
+      background: linear-gradient(to right, #ec407a, #ab47bc);
+      color: white;
+      padding: 16px;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s;
+    }
+
+    .btn:hover {
+      transform: scale(1.03);
+      background: linear-gradient(to right, #d81b60, #8e24aa);
+    }
+
+    .result {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 1.3rem;
+      color: #f48fb1;
+      background: #2a2a2a;
+      padding: 18px;
+      border-radius: 10px;
+      border: 1px solid #444;
+    }
+
+    /* Loading spinner styles */
+    .loader {
+      display: none;
+      position: absolute;
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .spinner {
+      border: 6px solid #333;
+      border-top: 6px solid #f06292;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Enter Tumor Characteristics</h2>
+    <form action="/predict" method="POST" onsubmit="showLoader()">
+      <input type="number" step="any" name="radius_mean" placeholder="Radius Mean" required>
+      <input type="number" step="any" name="texture_mean" placeholder="Texture Mean" required>
+      <input type="number" step="any" name="perimeter_mean" placeholder="Perimeter Mean" required>
+      <input type="number" step="any" name="area_mean" placeholder="Area Mean" required>
+      <input type="number" step="any" name="concavity_mean" placeholder="Concavity Mean" required>
+      <input type="number" step="any" name="concave_points_mean" placeholder="Concave Points Mean" required>
+      <input type="number" step="any" name="symmetry_mean" placeholder="Symmetry Mean" required>
+      <input type="number" step="any" name="fractal_dimension_mean" placeholder="Fractal Dimension Mean" required>
+      <button type="submit" class="btn">🔍 Predict</button>
+    </form>
+
+    <div class="loader" id="loader">
+      <div class="spinner"></div>
+    </div>
+
+    {% if prediction_text %}
+    <div class="result">
+      {{ prediction_text }}
+    </div>
+    {% endif %}
+  </div>
+
+  <script>
+    function showLoader() {
+      document.getElementById('loader').style.display = 'block';
+    }
+  </script>
+</body>
+</html>

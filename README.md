@@ -49,4 +49,17 @@ This project aims to detect whether a tumor is **malignant** or **benign** using
 
 ## 📁 Folder Structure
 
+```
+breast-cancer-decisiontree/
+├── templates/
+│   ├── form.html
+│   └── index.html
+├── app.py
+├── breastcancerCLF.ipynb
+├── DTreg.pkl
+├── LICENSE
+├── README.md
+└── requirements.txt
+```
+
 
